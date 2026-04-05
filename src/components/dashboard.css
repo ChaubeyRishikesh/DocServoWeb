@@ -1,0 +1,234 @@
+/* Page */
+.container {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f1f5f9; /* softer modern background */
+  min-height: 100vh;
+  text-align: center;
+  padding-bottom: 60px;
+}
+
+/* Marquee */
+.marquee {
+  margin-top: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  background: #e0f2fe;
+  padding: 6px 0;
+  border-bottom: 1px solid #bae6fd;
+}
+
+.marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 25s linear infinite;
+  font-weight: 500;
+  color: #0369a1;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0) }
+  to { transform: translateX(-100%) }
+}
+
+/* Dropdown Section */
+.center-box {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Dropdown */
+select {
+  width: 340px;
+  max-width: 90%;
+  padding: 12px;
+  margin: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  transition: 0.2s;
+}
+
+select:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+/* Card */
+.card {
+  width: 90%;
+  max-width: 380px;
+  background: white;
+  margin: 25px auto;
+  padding: 20px;
+  border-radius: 14px;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* Doctor Name */
+.card h2 {
+  margin-bottom: 5px;
+  color: #0f172a;
+  font-size: 20px;
+}
+
+/* Doctor details */
+.card p {
+  margin: 4px 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Token badge */
+.token {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Form */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 8px;
+
+  background: #38bdf8;
+  color: #0f172a;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #0ea5e9;
+}
+
+/* Secondary button */
+.track-btn {
+  background: #6366f1;
+  color: white;
+}
+
+.track-btn:hover {
+  background: #4f46e5;
+}
+
+/* Back Button */
+.back-btn {
+  width: auto;
+  background: #64748b;
+  padding: 6px 12px;
+}
+
+.back-btn:hover {
+  background: #475569;
+}
+
+/* Payment Buttons */
+.payment-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.payment-buttons button {
+  flex: 1;
+}
+
+/* QR Box */
+.qr-box {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.qr-placeholder {
+  width: 150px;
+  height: 150px;
+  background: #e2e8f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  border-radius: 10px;
+}
+
+/* Confirmation */
+.card h3 {
+  text-align: center;
+  color: #16a34a;
+}
+
+/* Remove old fixed footer conflict */
+.footer {
+  position: relative;
+}
+
+/* Watermark (subtle) */
+.watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-20deg);
+  font-size: 70px;
+  color: rgba(15, 23, 42, 0.03);
+  pointer-events: none;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+  .card {
+    width: 95%;
+    padding: 18px;
+  }
+
+  select {
+    width: 95%;
+  }
+
+  .watermark {
+    font-size: 40px;
+  }
+}
+
+/* Keep header buttons consistent */
+.admin-btn {
+  color: #38bdf8;
+}

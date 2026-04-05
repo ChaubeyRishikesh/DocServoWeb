@@ -1,0 +1,219 @@
+/* ================= PAGE BACKGROUND ================= */
+
+body{
+    margin:0;
+    background:#f4f6fb;
+    font-family:Segoe UI, Tahoma, sans-serif;
+}
+
+/* ================= MAIN CONTAINER ================= */
+
+.admin-container{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+
+/* ================= HEADER ================= */
+
+.admin-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    width:100%;
+    padding:18px 40px;
+
+    background:#0f172a;
+    border-bottom:3px solid #38bdf8;
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+    margin-bottom:25px;
+}
+
+/* ================= TITLE ================= */
+
+.dashboard-title{
+    font-size:24px;
+    font-weight:bold;
+    color:#38bdf8;
+}
+
+/* ================= LOGOUT BUTTON ================= */
+
+.power-btn{
+    background:#ef4444;
+    color:white;
+
+    border:none;
+    width:48px;
+    height:48px;
+
+    font-size:20px;
+    font-weight:bold;
+
+    border-radius:50%;
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition:all 0.25s ease;
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+.power-btn:hover{
+    background:#dc2626;
+    transform:scale(1.08);
+}
+
+/* ================= ADMIN ACTION BUTTONS ================= */
+
+.admin-actions{
+    display:flex;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.admin-actions button{
+    background:#1e293b;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:500;
+    transition:0.2s;
+}
+
+.admin-actions button:hover{
+    background:#38bdf8;
+    color:#0f172a;
+}
+
+/* ================= CONTENT AREA ================= */
+
+.admin-content{
+    margin-bottom:25px;
+}
+
+/* ================= CARD STYLE ================= */
+
+.admin-card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.06);
+}
+
+/* ================= INPUT FIELDS ================= */
+
+.admin-card input{
+    margin-left:10px;
+    padding:6px 8px;
+    border-radius:6px;
+    border:1px solid #d1d5db;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+    display:flex;
+    gap:20px;
+}
+
+.stats div{
+    flex:1;
+    background:white;
+    padding:18px;
+    border-radius:10px;
+    text-align:center;
+    font-weight:600;
+    box-shadow:0 3px 10px rgba(0,0,0,0.06);
+}
+
+/* ================= PENDING ROW ================= */
+
+.pending-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px;
+    border-bottom:1px solid #e5e7eb;
+}
+
+/* ================= QUEUE ROW ================= */
+
+.patient-row{
+    display:grid;
+    grid-template-columns:80px 1fr 120px 120px;
+    align-items:center;
+    padding:12px;
+    border-bottom:1px solid #e5e7eb;
+}
+
+/* ================= CONFIRM BUTTON ================= */
+
+.confirm-btn{
+    background:#22c55e;
+    color:white;
+    border:none;
+    padding:6px 14px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.confirm-btn:hover{
+    background:#16a34a;
+}
+
+/* ================= TOKEN PANEL ================= */
+
+.token-panel{
+    background:white;
+    border:2px solid #e2e8f0;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.06);
+}
+
+.token-panel h3{
+    margin-bottom:15px;
+}
+
+/* ================= TOKEN GRID ================= */
+
+.token-grid{
+    display:grid;
+    grid-template-columns:repeat(10,1fr);
+    gap:10px;
+}
+
+/* ================= TOKEN BUTTON ================= */
+
+.token-btn{
+    background:#e2e8f0;
+    border:none;
+    padding:12px 0;
+    border-radius:8px;
+    font-weight:500;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.token-btn:hover{
+    background:#cbd5f5;
+}
+
+/* ================= ACTIVE TOKEN ================= */
+
+.token-active{
+    background:#22c55e;
+    color:white;
+    border:none;
+    padding:12px 0;
+    border-radius:8px;
+    font-weight:bold;
+}
