@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import axios from 'axios'
 import "./dashboard.css";
 import Header from "./Header";
 import AdminLogin from "./AdminLogin";
@@ -8,30 +9,6 @@ import Footer from "./Footer";
 const Dashboard = () => {
 
     const cities = ["Varanasi", "Delhi"];
-
-    const doctorsData = {
-
-        Varanasi: [
-            {
-                id: 1,
-                name: "Dr Amit Sharma",
-                hospital: "Heritage Hospital",
-                address: "Lanka",
-                hospitalNumber: "HH001"
-            }
-        ],
-
-        Delhi: [
-            {
-                id: 2,
-                name: "Dr Raj Verma",
-                hospital: "Apollo Hospital",
-                address: "Delhi NCR",
-                hospitalNumber: "AP001"
-            }
-        ]
-
-    };
 
     const [step, setStep] = useState("select");
     const [selectedCity, setSelectedCity] = useState("");
@@ -51,15 +28,20 @@ const Dashboard = () => {
     const [bookingEnabled, setBookingEnabled] = useState(true);
     const [adminMessage, setAdminMessage] = useState("डॉकसर्वो में आपका स्वागत है⏳ अब घंटों का इंतज़ार हुआ खत्म! 📲 डॉकसर्वो अपनाइए और अपना टोकन नंबर पाइए। कृपया ध्यान दें, अपने टोकन नंबर की बारी आने से 10 मिनट पहले अवश्य पहुँचें। धन्यवाद!");
 
+useEffect(()=>{
+
+},[])
+
     const handleCityChange = (e) => {
         const city = e.target.value;
+        axios.get(`http://localhost:3000/docservo/doctorsList/${city}`).then(res=>setDoctors(res.data||[]))
         setSelectedCity(city);
-        setDoctors(doctorsData[city] || []);
     };
 
     const handleDoctorSelect = (e) => {
-        const doc = doctors.find(d => d.id === Number(e.target.value));
+        const doc = doctors.find(d => d.id == e.target.value);
         setSelectedDoctor(doc);
+        console.log("selectedDoctor",doc)
         setStep("doctor");
     };
 
@@ -70,7 +52,7 @@ const Dashboard = () => {
             return;
         }
 
-        const hospital = selectedDoctor.hospitalNumber;
+        const hospital = selectedDoctor.id;
 
         const hospitalPending = pending.filter(p => p.hospital === hospital);
         const hospitalPatients = patients.filter(p => p.hospital === hospital);
@@ -161,7 +143,7 @@ const handleHeaderClick=(e)=>{
 
                         {doctors.map(doc => (
                             <option key={doc.id} value={doc.id}>
-                                {doc.name}
+                                {doc.doctorName}
                             </option>
                         ))}
 
@@ -175,14 +157,16 @@ const handleHeaderClick=(e)=>{
 
                 <div className="card">
 
-                    <h2>{selectedDoctor.name}</h2>
+                    <h2>{selectedDoctor.doctorName}</h2>
+                    <p>{selectedDoctor.doctorDegree}</p>
 
-                    <p>{selectedDoctor.hospital}</p>
+                    <p>{selectedDoctor.hospitalName}</p>
+<p>{selectedDoctor.hospitalMessage}</p>
 
                     <p className="token">
-                        Current Token : {currentToken}
+                        Current Token : {selectedDoctor.currentToken}
                     </p>
-{bookingEnabled &&
+{selectedDoctor.bookingEnabled &&
                     <button
                        
                         onClick={() => setStep("form")}
