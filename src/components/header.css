@@ -1,56 +1,55 @@
 .header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  /* Professional dark theme (matching footer) */
-  background-color: #0f172a;
-  color: #e2e8f0;
-
-  font-size: 20px;
-  font-weight: 600;
-
-  padding: 12px 20px;
-
-  border-radius: 0 0 10px 10px;
-  border-bottom: 1px solid #1e293b;
-
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0f172a;
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
-  width: 180px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #38bdf8; /* accent */
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.5px;
 }
 
-/* Container clean (no white box now) */
-.buttonContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
+.logo-accent {
+    color: #38bdf8;
 }
 
-/* Buttons redesigned */
-.admin-btn {
-  background: transparent;
-  color: #e2e8f0;
-
-  border: 1px solid #334155;
-  padding: 6px 12px;
-
-  border-radius: 6px;
-  cursor: pointer;
-
-  font-size: 12px;
-  transition: all 0.2s ease;
+.nav-buttons {
+    display: flex;
+    gap: 0.5rem;
 }
 
-/* Hover effect */
-.admin-btn:hover {
-  background-color: #38bdf8;
-  color: #0f172a;
-  border-color: #38bdf8;
+.nav-buttons button {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-buttons button:hover {
+    background: rgba(56, 189, 248, 0.1);
+    border-color: #38bdf8;
+    color: #38bdf8;
+}
+
+/* Style for a 'selected' or 'active' page */
+.nav-active {
+    background: #38bdf8 !important;
+    color: #0f172a !important;
+    border-color: #38bdf8 !important;
+}
+
+/* Mobile Responsive adjustment */
+@media (max-width: 768px) {
+    .header { flex-direction: column; gap: 1rem; }
+    .nav-buttons { flex-wrap: wrap; justify-content: center; }
 }

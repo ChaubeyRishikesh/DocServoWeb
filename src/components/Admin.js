@@ -1,220 +1,75 @@
 import React, { useState } from "react";
 import "./admin.css";
 
-const Admin = ({
-    patients,
-    setPatients,
-    pending,
-    setPending,
-    hospital,
-    currentToken,
-    setCurrentToken,
-    bookingEnabled,
-    setBookingEnabled,
-    adminMessage,
-    setAdminMessage,
-    logout
+const Admin = ({ 
+    patients, setPatients, pending, setPending, hospital, 
+    currentToken, setCurrentToken, bookingEnabled, setBookingEnabled, 
+    adminMessage, setAdminMessage, logout, doctorInfo 
 }) => {
-
-    const [activeTab, setActiveTab] = useState("booking");
-
-    const hospitalPending = pending.filter(p => p.hospital === hospital);
-    const hospitalPatients = patients.filter(p => p.hospital === hospital);
-
-    const confirmPatient = (p) => {
-        const confirmed = { ...p, status: "waiting" };
-        setPatients([...patients, confirmed]);
-        setPending(pending.filter(x => x !== p));
-    };
-
-    const markVisited = (token) => {
-
-        const updated = patients.map(p => {
-
-            if (p.token === token && p.hospital === hospital) {
-                return { ...p, status: "checked" }
-            }
-
-            return p;
-
-        });
-
-        setPatients(updated);
-
-    };
-
-    const checked = hospitalPatients.filter(p => p.status === "checked").length;
-    const total = hospitalPatients.length + hospitalPending.length;
+    const [activeTab, setActiveTab] = useState("dashboard");
+    
+    // Subscription Logic (15-day threshold)
+    const expiryDate = new Date("2026-06-27"); 
+    const today = new Date();
+    const diffDays = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
 
     return (
-
-        <div className="admin-container">
-
-            {/* HEADER */}
-
-            <div className="admin-header">
-
-                <h2 className="dashboard-title">DocServo Admin</h2>
-
-                <button className="power-btn" onClick={logout}>
-                    ⏻
-                </button>
-
-            </div>
-
-            {/* ACTION BUTTONS */}
-
-            <div className="admin-actions">
-
-                <button onClick={() => setActiveTab("booking")}>Booking</button>
-
-                <button onClick={() => setActiveTab("pending")}>
-                    Pending ({hospitalPending.length})
-                </button>
-
-                <button onClick={() => setActiveTab("queue")}>Queue</button>
-
-                <button onClick={() => setActiveTab("stats")}>Stats</button>
-
-            </div>
-
-            {/* DYNAMIC CONTENT AREA */}
-
-            <div className="admin-content">
-
-                {activeTab === "booking" && (
-
-                    <div className="admin-card">
-
-                        <label>
-
-                            Booking Enabled
-
-                            <input
-                                type="checkbox"
-                                checked={bookingEnabled}
-                                onChange={() => setBookingEnabled(!bookingEnabled)}
-                            />
-
-                        </label>
-
-                        <input
-                            placeholder="Doctor message"
-                            value={adminMessage}
-                            onChange={(e) => setAdminMessage(e.target.value)}
-                        />
-
+        <div className="admin-page">
+            {/* FULL WIDTH HEADER */}
+            <header className="full-width-header">
+                <div className="brand">
+                    <h2>DocServo Admin</h2>
+                    <div className="doc-meta">
+                        Welcome back, <strong>{doctorInfo?.name}</strong> | <span className="hosp">{hospital}</span>
                     </div>
-
-                )}
-
-                {activeTab === "stats" && (
-
-                    <div className="stats">
-
-                        <div>Total {total}</div>
-                        <div>Checked {checked}</div>
-                        <div>Pending {hospitalPending.length}</div>
-
-                    </div>
-
-                )}
-
-                {activeTab === "pending" && (
-
-                    <div className="admin-card">
-
-                        <h3>Pending Requests</h3>
-
-                        {hospitalPending.map((p, i) => (
-
-                            <div className="pending-row" key={i}>
-
-                                <span>
-                                    Token {p.token} - {p.name}
-                                </span>
-
-                                <button
-                                    className="confirm-btn"
-                                    onClick={() => confirmPatient(p)}
-                                >
-                                    Confirm
-                                </button>
-
-                            </div>
-
-                        ))}
-
-                    </div>
-
-                )}
-
-                {activeTab === "queue" && (
-
-                    <div className="admin-card">
-
-                        <h3>Queue</h3>
-
-                        {hospitalPatients.map((p, i) => (
-
-                            <div className="patient-row" key={i}>
-
-                                <span>{p.token}</span>
-                                <span>{p.name}</span>
-                                <span>{p.status}</span>
-
-                                {p.status !== "checked" && (
-
-                                    <button onClick={() => markVisited(p.token)}>
-                                        Visited
-                                    </button>
-
-                                )}
-
-                            </div>
-
-                        ))}
-
-                    </div>
-
-                )}
-
-            </div>
-
-            {/* TOKEN PANEL */}
-
-            <div className="token-panel">
-
-                <h3>Update Token</h3>
-
-                <div className="token-grid">
-
-                    {Array.from({ length: 100 }, (_, i) => {
-
-                        const t = i + 1;
-
-                        return (
-
-                            <button
-                                key={i}
-                                className={currentToken === t ? "token-active" : "token-btn"}
-                                onClick={() => setCurrentToken(t)}
-                            >
-                                {t}
-                            </button>
-
-                        )
-
-                    })}
-
                 </div>
+                <button className="power-icon-btn" onClick={logout} title="Logout">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
+                </button>
+            </header>
 
+            {/* SUBSCRIPTION ALERT */}
+            <div className={`expiry-alert ${diffDays > 15 ? 'success' : 'warning'}`}>
+                {diffDays > 15 ? (
+                    <span>Thank you for using DocServo. Your service is active until {expiryDate.toDateString()}.</span>
+                ) : (
+                    <span>⚠️ Your subscription expires in {diffDays} days! <button className="btn-small btn-pay">Pay to Continue</button></span>
+                )}
             </div>
 
+            <nav className="admin-nav">
+                {["dashboard", "pending", "queue", "stats"].map(tab => (
+                    <button key={tab} className={activeTab === tab ? "active" : ""} onClick={() => setActiveTab(tab)}>
+                        {tab.toUpperCase()}
+                    </button>
+                ))}
+            </nav>
+
+            <main className="admin-content">
+                {activeTab === "dashboard" && (
+                    <div className="dashboard-grid">
+                        <section className="card token-box">
+                            <h3>Live Token Management</h3>
+                            <div className="token-display">{currentToken}</div>
+                            <div className="controls">
+                                <button onClick={() => setCurrentToken(prev => Math.max(1, prev - 1))}>Previous</button>
+                                <button onClick={() => setCurrentToken(prev => prev + 1)}>Next</button>
+                            </div>
+                            <input type="number" value={currentToken} onChange={(e) => setCurrentToken(parseInt(e.target.value) || 1)} />
+                        </section>
+
+                        <section className="card">
+                            <h3>Doctor Message & Settings</h3>
+                            <textarea className="big-textarea" value={adminMessage} onChange={(e) => setAdminMessage(e.target.value)} />
+                            <label className="big-toggle">
+                                Booking Enabled
+                                <input type="checkbox" checked={bookingEnabled} onChange={() => setBookingEnabled(!bookingEnabled)} />
+                            </label>
+                        </section>
+                    </div>
+                )}
+            </main>
         </div>
-
     );
-
 };
-
 export default Admin;

@@ -1,56 +1,48 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Header from "./Header";
-const AdminLogin=({setAdminHospital,setStep})=>{
+import "./login.css";
 
-const [user,setUser]=useState("HH001_admin");
-const [pass,setPass]=useState("1234");
+const AdminLogin = ({ setAdminHospital, setStep }) => {
+    const [user, setUser] = useState("");
+    const [pass, setPass] = useState("1234");
 
-const login=()=>{
+    const login = () => {
+        if (pass === "1234") {
+            const hospital = user.split("_")[0];
+            setAdminHospital(hospital);
+            setStep("admin");
+        } else {
+            alert("Invalid Login Credentials");
+        }
+    };
 
-if(pass==="1234"){
+    return (
+        <div className="login-page">
+            <Header handleHeaderNav={(e) => setStep(e)} />
+            
+            <div className="login-content">
+                <div className="login-card">
+                    <h2>Admin Login</h2>
+                    <p className="subtitle">Access your hospital portal</p>
+                    
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        value={user}
+                        onChange={(e) => setUser(e.target.value)}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        onChange={(e) => setPass(e.target.value)}
+                    />
 
-const hospital=user.split("_")[0];
-
-setAdminHospital(hospital);
-setStep("admin");
-
-}
-else{
-alert("Invalid Login");
-}
-
-};
-
-return(
-<>
-<Header/>
-<div className="card">
-
-<h2>Admin Login</h2>
-
-<input
-placeholder="HH001_admin"
-onChange={(e)=>setUser(e.target.value)}
-/>
-
-<input
-type="password"
-placeholder="Password"
-onChange={(e)=>setPass(e.target.value)}
-/>
-
-<button onClick={login}>
-Login
-</button>
-
-<button onClick={()=>setStep("select")}>
-Back
-</button>
-
-</div>
-</>
-)
-
+                    <button className="btn-primary" onClick={login}>Login</button>
+                    <button className="btn-secondary" onClick={() => setStep("select")}>Back to Home</button>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default AdminLogin;
