@@ -37,6 +37,7 @@ const Dashboard = () => {
 
     const bookAppointment = () => {
         if (!bookingEnabled) return alert("Booking currently closed");
+        if (!patient.name.trim() || !patient.mobile.trim()) return alert("Please enter full name and mobile number.");
         const newToken = pending.length + patients.length + 1;
         setPending([...pending, { ...patient, token: newToken, hospital: selectedDoctor.id, status: "pending" }]);
         setToken(newToken);
@@ -96,6 +97,32 @@ const Dashboard = () => {
                         <input placeholder="Full Name" onChange={(e) => setPatient({...patient, name: e.target.value})} />
                         <input placeholder="Mobile Number" onChange={(e) => setPatient({...patient, mobile: e.target.value})} />
                         <button className="btn-primary" onClick={bookAppointment}>Confirm Booking</button>
+                    </div>
+                )}
+                {step === "success" && (
+                    <div className="card">
+                        <h3>Booking Confirmed</h3>
+                        <p>Your appointment has been successfully booked.</p>
+                        <div className="token-highlight">
+                            <span>Booking ID</span>
+                            <strong>{token}</strong>
+                        </div>
+                        {selectedDoctor && (
+                            <>
+                                <p><strong>Doctor:</strong> {selectedDoctor.doctorName}</p>
+                                <p><strong>Hospital:</strong> {selectedDoctor.hospitalName}</p>
+                            </>
+                        )}
+                        <button className="btn-primary" onClick={() => {
+                            setStep("select");
+                            setPatient({ name: "", mobile: "" });
+                            setSelectedDoctor(null);
+                            setDoctors([]);
+                            setSelectedCity("");
+                        }}>
+                            Back to Home
+                        </button>
+                        <button className="btn-secondary" onClick={() => setStep("track")}>Track My Booking</button>
                     </div>
                 )}
             </main>

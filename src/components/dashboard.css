@@ -123,3 +123,12 @@ input {
     font-size: 1rem;
 }
 input:focus { border-color: var(--sky); outline: none; }
+
+/* Track booking wrapper - center the card on the page */
+.track-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    padding: 40px 20px;
+}

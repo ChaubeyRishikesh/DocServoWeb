@@ -14,39 +14,40 @@ setResult(p || pen);
 
 };
 
-return(
 
-<div className="card">
+return (
+	<div className="track-wrapper">
+		<div className="card">
 
-<h2>Track Booking</h2>
+			<h2>Track Booking</h2>
 
-<input
-placeholder="Enter Mobile"
-onChange={(e)=>setMobile(e.target.value)}
-/>
+			<input
+				placeholder="Enter Mobile"
+				onChange={(e) => setMobile(e.target.value)}
+			/>
 
-<button onClick={search}>
-Search
-</button>
+			<button onClick={search}>
+				Search
+			</button>
 
-{result &&(
+			{result && (
 
-<div>
+				<div>
 
-<p>Token : {result.token}</p>
-<p>Status : {result.status}</p>
-<p>Current Token : {currentToken}</p>
+					<p>Token : {result.token}</p>
+					<p>Status : {result.status}</p>
+					<p>Current Token : {currentToken}</p>
 
-</div>
+				</div>
 
-)}
+			)}
 
-<button onClick={goBack}>
-Back
-</button>
+			<button onClick={goBack}>
+				Back
+			</button>
 
-</div>
-
+		</div>
+	</div>
 )
 
 };
